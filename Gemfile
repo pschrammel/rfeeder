@@ -47,3 +47,4 @@ end
 gem "attribute_normalizer", "0.3.1"
 gem "devise"
 gem "kaminari"
+gem "debugger", group: "development"

@@ -1,0 +1,4 @@
+id:integer,name:string,label:string
+1,green,Green
+2,yellow,Yellow
+3,red,Red

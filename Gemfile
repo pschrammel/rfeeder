@@ -22,7 +22,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+#gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -41,16 +41,24 @@ end
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
 
 gem "attribute_normalizer", "0.3.1"
 gem "devise"
 gem "kaminari"
-gem "debugger", group: "development"
-gem "capistrano", group: "development"
-gem "capistrano-ext", group: "development"
-gem "rspec-rails", group: "test"
-gem "timecop", group: "test"
-gem "factory_girl", group: "test"
-gem "thin", group: "development"
+gem "feedzirra",:git => 'https://github.com/pauldix/feedzirra.git' #"0.5.0"
+
+
+
+group "development" do
+gem "debugger"
+gem "debugger"
+gem "capistrano"
+gem "capistrano-ext"
+gem "thin"
+end 
+
+group "test" do
+  gem "factory_girl"
+  gem "rspec-rails"
+  gem "timecop"
+end

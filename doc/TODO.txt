@@ -6,7 +6,6 @@
 - feed finder
 - tagging/user
 - fever api
-- fetcher rake task
 - whenever 15 min interval
 - update stories near realtime
 - filters, order by , tags

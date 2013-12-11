@@ -24,5 +24,11 @@ module Rfeeder
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    config.site_name='Rfeeder'
+    config.domain_name='localhost:3000'
   end
 end
+
+
+AppConfig=Rfeeder::Application.config

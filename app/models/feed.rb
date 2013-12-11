@@ -1,5 +1,5 @@
 class Feed < ActiveRecord::Base
-  has_many :stories,:dependent => :destroy
+  has_many :stories, :dependent => :destroy
   belongs_to :status, :class_name => 'FeedStatus', :foreign_key => 'feed_status_id'
 
   def latest_entry_id
@@ -7,8 +7,10 @@ class Feed < ActiveRecord::Base
   end
 
   def last_modified!(_last_modified)
-
+    self.last_fetched_at=_last_modified
+    save!
   end
+
   def status!(status_name)
 
   end

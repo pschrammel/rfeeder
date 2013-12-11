@@ -1,0 +1,13 @@
+- use devise
+- mark as read when clicked / user
+- mark all as read / user (just until we viewed)
+- don't load all but the the last 100 
+- infinite scroll
+- feed finder
+- tagging/user
+- fever api
+- fetcher rake task
+- whenever 15 min interval
+- update stories near realtime
+- filters, order by , tags
+

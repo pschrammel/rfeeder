@@ -1,0 +1,89 @@
+@import 'mixins/centered';
+
+/*.header {
+ height:75px;
+ background: #4c5966;
+ z-index: 999;
+ padding-top: 20px;
+}
+*/
+
+footer.pagefooter {
+  color: #D8DFE5;
+  @include centered;
+  margin-top: 50px;
+  border-top: 3px solid #6D767E;
+  background: none repeat scroll 0 0 #4C5966;
+  padding: 20px;
+
+  a {
+    color: #D8DFE5;
+  }
+  a:hover {
+    color: #D8DFE5;
+  }
+
+  h4 {
+    border-bottom: 1px solid #6D767E;
+    margin-bottom: 10px;
+    padding: 0 0 5px;
+  }
+
+  .column {
+    min-height: 6em;
+    width: 33%;
+    padding-right: 20px;
+  }
+}
+
+section.footerCredits {
+  padding-top: 20px;
+  text-align: right;
+  color: #D8DFE5;
+  background: none repeat scroll 0 0 #576674;
+  font-size: 70%;
+  ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 10px 0;
+  }
+}
+
+body {
+  min-width: 480px;
+  min-height: 600px;
+}
+
+form {
+  margin: 0px;
+}
+
+div.navbar {
+  margin-top: 20px;
+}
+
+.muchtext h3, h4 {
+  text-transform: lowercase;
+  border-bottom: 1px solid #D8DFE5;
+  padding-top: 2em;
+  margin-bottom: 1em;
+}
+
+p.releasenote {
+  text-align: right;
+  font-size: 70%;
+}
+
+.column-left {
+  min-width: 180px;
+  padding-left: 15px;
+  width: 21%;
+  float: left;
+}
+
+.column-right {
+  padding-left: 15px;
+  min-height: 300px;
+  float:left;
+  width: 71%
+}

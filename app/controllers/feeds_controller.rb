@@ -26,6 +26,7 @@ class FeedsController < ApplicationController
   def create
     @feed = Feed.new(feed_params)
     @feed.status=FeedStatus.find(1)
+    @feed.last_fetched_at=1.day.ago
 
     respond_to do |format|
       if @feed.save

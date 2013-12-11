@@ -3,7 +3,8 @@ class Story < ActiveRecord::Base
   validates_uniqueness_of :entry_id, scope: :feed_id
 
   def self.create_from_raw(feed, entry)
-    Story.create!(:feed => feed,
+    #might fail!
+    Story.create(:feed => feed,
                   :title => entry.title,
                   :permalink => entry.url,
                   :raw_body => entry,
@@ -15,11 +16,11 @@ class Story < ActiveRecord::Base
   end
 
   def headline
-    self.title.nil? ? UNTITLED : strip_html(self.title)[0, 50]
+    self.title.nil? ? UNTITLED : strip_html(self.title)[0, 100]
   end
 
   def lead
-    strip_html(self.body)[0, 100]
+    strip_html(self.body)[0, 600]
   end
 
   def source

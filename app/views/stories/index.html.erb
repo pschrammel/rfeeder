@@ -1,0 +1,17 @@
+<% @stories.each do |story| %>
+  <div>
+    <h3> <%= story.feed.name %>: <%= link_to story.title, story.permalink, :target => 'rfeeder_target' %></h3>
+
+    <div>
+      <%= story.lead %>
+    </div>
+    <div>
+      <%= story.published %> |
+      <%= story.is_starred %> |
+      <%= story.is_read %> |
+      <%= story.keep_unread %> |
+      <%= story.entry_id %>
+    </div>
+  </div>
+<% end %>
+

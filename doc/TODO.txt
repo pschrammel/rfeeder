@@ -1,5 +1,5 @@
-- use devise
-- mark as read when clicked / user
+#- use devise
+#- mark as read when clicked / user
 - mark all as read / user (just until we viewed)
 - don't load all but the the last 100 
 - infinite scroll
@@ -8,5 +8,5 @@
 - fever api
 - whenever 15 min interval
 - update stories near realtime
-- filters, order by , tags
+- filters (unread), order by , tags
 

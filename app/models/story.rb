@@ -2,16 +2,22 @@ class Story < ActiveRecord::Base
   belongs_to :feed
   validates_uniqueness_of :entry_id, scope: :feed_id
 
+  attr_accessor :user_open
+  #mark as opened
+  def self.opened(story, user)
+    UserOpen.opened(story, user)
+  end
+
   def self.create_from_raw(feed, entry)
     #might fail!
     Story.create(:feed => feed,
-                  :title => entry.title,
-                  :permalink => entry.url,
-                  :raw_body => entry,
-                  :is_read => false,
-                  :is_starred => false,
-                  :published => entry.published || Time.now,
-                  :entry_id => entry.id)
+                 :title => entry.title,
+                 :permalink => entry.url,
+                 :raw_body => entry,
+                 :is_read => false,
+                 :is_starred => false,
+                 :published => entry.published || Time.now,
+                 :entry_id => entry.id)
 
   end
 
@@ -31,6 +37,9 @@ class Story < ActiveRecord::Base
     I18n.l(self.published)
   end
 
+  def seen_text
+    user_open.seen? ? I18n.l(user_open.last_opened_at) : 'new'
+  end
 
   def raw_body=(entry)
     self.body=extract_content(entry)

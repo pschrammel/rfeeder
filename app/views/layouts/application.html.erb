@@ -90,12 +90,12 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <%= javascript_include_tag "application" %>
-<%= yield :javascript %>
 <%#= render 'layouts/common/google_analytics' if Responsivedesign::Application.config.google_analytics %>
 <script>
   $(function () {
     $('.dropdown-toggle').dropdown()
   });
+  <%= yield :javascript %>
 </script>
 </body>
 </html>

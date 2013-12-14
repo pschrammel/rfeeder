@@ -1,12 +1,13 @@
 #- use devise
 #- mark as read when clicked / user
-- mark all as read / user (just until we viewed)
-- don't load all but the the last 100 
-- infinite scroll
+#- mark all as read / user
+- don't load all but the the last 100/infinite scroll
 - feed finder
 - tagging/user
 - fever api
 - whenever 15 min interval
-- update stories near realtime
+- update stories near realtime (push to frontend if new stories are imported)
 - filters (unread), order by , tags
+- put mark all read into background job
+- mark all read should obey to filters
 

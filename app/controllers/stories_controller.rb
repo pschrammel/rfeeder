@@ -5,9 +5,25 @@ class StoriesController < ApplicationController
   # GET /stories.json
   def index
     @stories = Story.includes(:feed).order('published DESC').all
-    user_opens=UserOpen.for_stories(@stories,current_user).index_by(&:story_id)
-    @stories.each do |story| story.user_open=user_opens[story.id] || UserOpen.missing(story,current_user) end
+    user_opens=UserOpen.for_stories(@stories, current_user).index_by(&:story_id)
+    @stories.each do |story|
+      story.user_open=user_opens[story.id] || UserOpen.missing(story, current_user)
+    end
 
+  end
+
+  #POST /stories/mark_all_read
+  #mark all stories read by me that are currently in the system
+  #TODO: in a special selection
+  def mark_all_read
+    #TODO: this should be a background job:
+    now=Time.now
+
+    Story.joins('LEFT OUTER JOIN user_opens ON stories.id = user_opens.story_id').where(['user_opens.id is null AND created_at<?',now]).find_each do |story|
+      Story.opened(story,current_user)
+    end
+
+    render :json => {:status => 'ok'}
   end
 
   # GET /stories/1
@@ -16,9 +32,10 @@ class StoriesController < ApplicationController
   end
 
   def open
-    Story.opened(@story,current_user)
+    Story.opened(@story, current_user)
     redirect_to @story.permalink
   end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_story

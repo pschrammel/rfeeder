@@ -1,9 +1,15 @@
+<div class="btn-group">
+  <%= button_to mark_all_read_stories_path, :class => "btn btn-default js-mark-all-read",:remote => true do %>
+    Mark all read
+  <% end %>
+</div>
+
 <% @stories.each do |story| %>
   <div>
     <h3> <%= story.feed.name %>
       : <%= link_to story.title, open_story_path(story), :target => 'rfeeder_target', :class => "js-open-story", "data-new-story-id" => story.id %>
       <% unless story.user_open.seen? %>
-        <span id="new-story-<%= story.id %>" class="glyphicon glyphicon-certificate"></span>
+        <span id="new-story-<%= story.id %>" class="new-story-indicator glyphicon glyphicon-certificate"></span>
       <% end %>
     </h3>
 
@@ -19,4 +25,5 @@
 <% end %>
 <%= content_for(:javascript) do %>
   Rfeeder.wire_open_story();
+  Rfeeder.wire_mark_all_read();
 <% end %>

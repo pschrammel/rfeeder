@@ -2,6 +2,9 @@ Rfeeder::Application.routes.draw do
   devise_for :users
   resources :feeds
   resources :stories do
+    collection do
+      post 'mark_all_read'
+    end
     member do
       get 'open'
     end

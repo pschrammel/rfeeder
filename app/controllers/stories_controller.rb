@@ -1,5 +1,5 @@
 class StoriesController < ApplicationController
-  before_action :set_story, only: [:show, :open]
+  before_action :set_story, only: [:show, :open, :mark_read]
 
   # GET /stories
   # GET /stories.json
@@ -19,10 +19,16 @@ class StoriesController < ApplicationController
     #TODO: this should be a background job:
     now=Time.now
 
-    Story.joins('LEFT OUTER JOIN user_opens ON stories.id = user_opens.story_id').where(['user_opens.id is null AND created_at<?',now]).find_each do |story|
-      Story.opened(story,current_user)
+    Story.joins('LEFT OUTER JOIN user_opens ON stories.id = user_opens.story_id').where(['user_opens.id is null AND created_at<?', now]).find_each do |story|
+      Story.opened(story, current_user)
     end
 
+    render :json => {:status => 'ok'}
+  end
+
+  #POST /stories/1/mark_read
+  def mark_read
+    Story.opened(@story, current_user)
     render :json => {:status => 'ok'}
   end
 

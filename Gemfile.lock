@@ -191,7 +191,7 @@ DEPENDENCIES
   feedzirra!
   jbuilder (~> 1.2)
   jquery-rails
-  kaminari
+  kaminari (= 0.14.1)
   pg
   rails (= 4.0.2)
   rspec-rails

@@ -1,0 +1,24 @@
+<% @stories.each do |story| %>
+  <div>
+    <h3> <%= story.feed.name %>
+      : <%= link_to story.title, open_story_path(story), :target => 'rfeeder_target', :class => "js-open-story", "data-new-story-id" => story.id %>
+      <% unless story.user_open.seen? %>
+        <%= link_to mark_read_story_path(story),
+                    :class => 'js-new-story-indicator', :id => "new-story-#{story.id }", :remote => true,
+                    :method => 'post' do %>
+          <span class="glyphicon glyphicon-certificate"></span>
+        <% end %>
+      <% end %>
+    </h3>
+
+    <div>
+      <%= story.lead.html_safe %>
+    </div>
+    <div>
+      <%= story.seen_text %> |
+      <%= story.published %> |
+      <%= story.entry_id %>
+    </div>
+  </div>
+<% end %>
+<%= link_to_next_page @stories, 'Next Page', {:params => {:partial => true}, :class => 'js-jscroll-next'} %>

@@ -17,7 +17,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem "attribute_normalizer", "0.3.1"
 gem "devise"
-gem "kaminari"
+gem "kaminari","0.14.1"
 
 
 gem "feedzirra",:git => 'https://github.com/pauldix/feedzirra.git' #"0.5.0"

@@ -4,31 +4,17 @@
   <% end %>
 </div>
 
-<% @stories.each do |story| %>
-  <div>
-    <h3> <%= story.feed.name %>
-      : <%= link_to story.title, open_story_path(story), :target => 'rfeeder_target', :class => "js-open-story", "data-new-story-id" => story.id %>
-      <% unless story.user_open.seen? %>
-        <%= link_to mark_read_story_path(story),
-                    :class => 'js-new-story-indicator', :id => "new-story-#{story.id }", :remote => true,
-            :method => 'post' do %>
-          <span class="glyphicon glyphicon-certificate"></span>
-        <% end %>
-      <% end %>
-    </h3>
+<div id="stories">
+  <%= render :partial => 'index' %>
 
-    <div>
-      <%= story.lead.html_safe %>
-    </div>
-    <div>
-      <%= story.seen_text %> |
-      <%= story.published %> |
-      <%= story.entry_id %>
-    </div>
-  </div>
-<% end %>
+</div>
 <%= content_for(:javascript) do %>
-  Rfeeder.wire_open_story();
+
   Rfeeder.wire_mark_all_read();
+  Rfeeder.wire_open_story();
   Rfeeder.wire_mark_read();
+  $("#stories").jscroll({
+  nextSelector: 'a.js-jscroll-next:last',
+  padding: 10
+  });
 <% end %>

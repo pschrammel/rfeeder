@@ -2,14 +2,18 @@ class FeedFetcher
 
   USER_AGENT = "WebKit"
 
-  def initialize(feed, feed_parser = Feedzirra::Feed, logger = Rails.logger)
+  def initialize(feed, logger = Rails.logger, feed_parser = Feedzirra::Feed )
     @feed = feed
     @parser = feed_parser
     @logger = logger
+    @failed=0
+    @stories=0
+    @succeeded=0
   end
 
   def fetch
     begin
+      @logger.info "FEED #{@feed.name}: fetching from #{@feed.url}"
       raw_feed = @parser.fetch_and_parse(@feed.url,
                                          :user_agent => USER_AGENT,
                                          :if_modified_since => @feed.last_fetched_at,
@@ -17,20 +21,24 @@ class FeedFetcher
                                          :max_redirects => 2)
 
       if raw_feed == 304
-        @logger.info "#{@feed.url} has not been modified since last fetch"
+        @logger.info "FEED #{@feed.name}: has not been modified since last fetch"
       else
         new_entries_from(raw_feed).each do |entry|
-          Story.create_from_raw(@feed,entry)
+          @stories += 1
+          if Story.create_from_raw(@feed,entry)
+            @succeeded += 1
+          else
+            @failed += 1
+          end
         end
-
         @feed.last_modified!(raw_feed.last_modified)
       end
-
       @feed.status!(:green)
     rescue Exception => ex
+      @logger.error "FEED #{@feed.name}: something went wrong when parsing #{@feed.url}: #{ex},#{ex.backtrace.join("\n")}"
       @feed.status!(:red)
-      @logger.error "Something went wrong when parsing #{@feed.url}: #{ex},#{ex.backtrace.join("\n")}"
     end
+    @logger.info "FEED #{@feed.name}: done (new: #{@stories} | ok: #{@succeeded} | fail: #{@failed})"
   end
 
   private

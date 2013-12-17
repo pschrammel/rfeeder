@@ -15,7 +15,7 @@ timeout 30
 
 # Listen on a Unix data socket
 #listen '/tmp/sockets/unicorn.sock' # , :backlog => 2048
-listen 4000
+listen ENV['PORT'] || 4000
 
 # user `whoami`.strip
 

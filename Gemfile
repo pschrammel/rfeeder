@@ -29,6 +29,7 @@ group "development" do
   gem "debugger"
   gem "capistrano"
   gem "capistrano-ext"
+  gem "rvm-capistrano" 
 end 
 
 group "test" do

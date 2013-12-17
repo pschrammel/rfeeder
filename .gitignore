@@ -17,3 +17,4 @@
 .idea
 .rvmrc
 .rspec
+config/database.yml

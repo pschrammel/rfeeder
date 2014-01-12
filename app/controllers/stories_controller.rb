@@ -18,7 +18,7 @@ class StoriesController < ApplicationController
   #TODO: in a special selection
   def mark_all_read
     #TODO: this should be a background job:
-    now=Time.now
+    now=(params[:before] ? Time.parse(params[:before]) : Time.now)
 
     Story.joins('LEFT OUTER JOIN user_opens ON stories.id = user_opens.story_id').where(['user_opens.id is null AND created_at<?', now]).find_each do |story|
       Story.opened(story, current_user)

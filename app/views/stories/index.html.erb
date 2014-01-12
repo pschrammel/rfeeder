@@ -1,5 +1,5 @@
 <div class="btn-group">
-  <%= button_to mark_all_read_stories_path, :class => "btn btn-default js-mark-all-read", :remote => true do %>
+  <%= button_to mark_all_read_stories_path(:before => Time.now.iso8601), :class => "btn btn-default js-mark-all-read", :remote => true do %>
     Mark all read
   <% end %>
 </div>

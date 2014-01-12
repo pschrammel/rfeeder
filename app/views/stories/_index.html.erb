@@ -17,7 +17,8 @@
     <div>
       <%= story.seen_text %> |
       <%= story.published %> |
-      <%= story.entry_id %>
+      <%= story.entry_id %> |
+      <%=  story.created_at.iso8601 %>
     </div>
   </div>
 <% end %>

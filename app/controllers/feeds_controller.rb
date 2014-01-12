@@ -30,7 +30,7 @@ class FeedsController < ApplicationController
 
     respond_to do |format|
       if @feed.save
-        format.html { redirect_to @feed, notice: 'Feed was successfully created.' }
+        format.html { redirect_to feeds_path, notice: 'Feed was successfully created.' }
         format.json { render action: 'show', status: :created, location: @feed }
       else
         format.html { render action: 'new' }
@@ -44,7 +44,7 @@ class FeedsController < ApplicationController
   def update
     respond_to do |format|
       if @feed.update(feed_params)
-        format.html { redirect_to @feed, notice: 'Feed was successfully updated.' }
+        format.html { redirect_to feeds_path, notice: 'Feed was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

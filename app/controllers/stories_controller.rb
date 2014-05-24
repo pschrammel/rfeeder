@@ -5,7 +5,9 @@ class StoriesController < ApplicationController
   # GET /stories.json
   # params page,
   def index
-    @stories = Story.includes(:feed).order('published DESC').page(params[:page])
+    @filter=params[:q] || {}
+    @stories = Story.includes(:feed).order('published DESC').filter(params[:q], current_user).page(params[:page])
+
     user_opens=UserOpen.for_stories(@stories, current_user).index_by(&:story_id)
     @stories.each do |story|
       story.user_open=user_opens[story.id] || UserOpen.missing(story, current_user)

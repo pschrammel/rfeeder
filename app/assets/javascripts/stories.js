@@ -46,3 +46,10 @@ Rfeeder.wire_mark_read_later = function () {
   })
 };
 
+Rfeeder.wire_endless_scroll = function () {
+  $("#stories").jscroll({
+    nextSelector: 'a.js-jscroll-next:last',
+    padding: 10
+  });
+}
+

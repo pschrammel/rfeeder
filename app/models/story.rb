@@ -1,6 +1,6 @@
 class Story < ActiveRecord::Base
   belongs_to :feed
-  validates_uniqueness_of :entry_id, scope: :feed_id
+  validates_uniqueness_of :entry_id, :scope => :feed_id
 
   attr_accessor :user_open
 
@@ -16,6 +16,15 @@ class Story < ActiveRecord::Base
                  :entry_id => entry.id)
 
   end
+
+  scope :filter, lambda { |filter, user|
+    filter ||= {}
+    if filter[:read_later]
+      sc=joins("LEFT JOIN user_opens ON stories.id=user_opens.story_id").where(["user_opens.user_id=?", user.id])
+      sc=sc.where("user_opens.read_later_at is not null")
+      sc
+    end
+  }
 
   def headline
     self.title.nil? ? UNTITLED : strip_html(self.title)[0, 100]

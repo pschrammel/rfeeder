@@ -1,13 +1,17 @@
-<div class="btn-group">
-  <%= button_to mark_all_read_stories_path(:before => Time.now.iso8601), :class => "btn btn-default js-mark-all-read", :remote => true do %>
-    Mark all read
-  <% end %>
-</div>
+<%= content_for :header do %>
+  <div class="btn-group-sm">
+    <%= link_to mark_all_read_stories_path(:before => Time.now.iso8601), :class => "btn btn-default js-mark-all-read", :remote => true, :method => :post do %>
+      Mark all read
+    <% end %>
+    <%= link_to root_path, :class => "btn btn-default js-mark-all-read" do %> Reload
+    <% end %>
+  </div>
+<% end %>
 
 <div id="stories">
   <%= render :partial => 'index' %>
-
 </div>
+
 <%= content_for(:javascript) do %>
 
   Rfeeder.wire_mark_all_read();

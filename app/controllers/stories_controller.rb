@@ -22,7 +22,7 @@ class StoriesController < ApplicationController
     #TODO: this should be a background job:
     now=(params[:before] ? Time.parse(params[:before]) : Time.now)
 
-    Story.joins('LEFT OUTER JOIN user_opens ON stories.id = user_opens.story_id').where(['user_opens.id is null AND created_at<?', now]).find_each do |story|
+    Story.joins('LEFT OUTER JOIN user_opens ON stories.id = user_opens.story_id').where(['(user_opens.id is null OR user_opens.last_opened_at is NULL ) AND stories.created_at<?', now]).find_each do |story|
       UserOpen.story_of_user(story, current_user).open!
     end
 

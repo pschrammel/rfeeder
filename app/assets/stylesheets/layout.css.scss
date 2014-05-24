@@ -52,6 +52,9 @@ section.footerCredits {
 body {
   min-width: 480px;
   min-height: 600px;
+  padding-top: 95px; //for fixed navbar
+
+
 }
 
 form {
@@ -59,7 +62,7 @@ form {
 }
 
 div.navbar {
-  margin-top: 20px;
+  //margin-top: 20px;
 }
 
 .muchtext h3, h4 {

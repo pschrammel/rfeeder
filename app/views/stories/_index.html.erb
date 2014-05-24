@@ -1,7 +1,6 @@
 <% @stories.each do |story| %>
   <div>
-    <h3> <%= story.feed.name %>
-      : <%= link_to story.title, open_story_path(story), :target => 'rfeeder_target', :class => "js-open-story", "data-new-story-id" => story.id %>
+    <h3>
       <%= link_to mark_read_story_path(story),
                   :class => 'js-new-story-indicator', :id => "new-story-#{story.id }", :remote => true,
                   :method => 'post' do %>
@@ -10,8 +9,11 @@
       <%= link_to mark_read_later_story_path(story),
                   :class => 'js-read-later-story-indicator', :id => "read-later-story-#{story.id }", :remote => true,
                   :method => 'post' do %>
-        <span class="read-later glyphicon glyphicon-bookmark <%= 'storyNotReadLater' unless story.user_open.read_later? %>" ></span>
+        <span class="read-later glyphicon glyphicon-bookmark <%= 'storyNotReadLater' unless story.user_open.read_later? %>"></span>
       <% end %>
+      <%= story.feed.name %> :
+      <%= link_to story.title, open_story_path(story), :target => 'rfeeder_target', :class => "js-open-story", "data-new-story-id" => story.id %>
+
     </h3>
 
     <div>
@@ -25,4 +27,5 @@
     </div>
   </div>
 <% end %>
-<%= link_to_next_page @stories, 'Next Page', {:params => {:partial => true}, :class => 'js-jscroll-next'} %>
+
+<%= link_to_next_page @stories, 'Next Page', :params => {:partial => true, :q => @q.to_hash}, :class => 'js-jscroll-next' %>

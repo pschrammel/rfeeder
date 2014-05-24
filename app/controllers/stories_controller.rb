@@ -5,8 +5,10 @@ class StoriesController < ApplicationController
   # GET /stories.json
   # params page,
   def index
-    @filter=params[:q] || {}
-    @stories = Story.includes(:feed).order('published DESC').filter(params[:q], current_user).page(params[:page])
+    logger.debug(params[:q].inspect)
+    @q=StoryFilter.new(params[:q])
+
+    @stories = Story.includes(:feed).order('published DESC').filter(@q, current_user).page(params[:page])
 
     user_opens=UserOpen.for_stories(@stories, current_user).index_by(&:story_id)
     @stories.each do |story|

@@ -1,10 +1,27 @@
 <%= content_for :header do %>
-  <div class="btn-group-sm">
-    <%= link_to mark_all_read_stories_path(:before => Time.now.iso8601), :class => "btn btn-default js-mark-all-read", :remote => true, :method => :post do %>
-      Mark all read
-    <% end %>
-    <%= link_to root_path, :class => "btn btn-default js-mark-all-read" do %> Reload
-    <% end %>
+  <div class="btn-toolbar" role="toolbar">
+    <div class="btn-group btn-group-sm">
+      <%= link_to mark_all_read_stories_path(:before => Time.now.iso8601), :class => "btn btn-default js-mark-all-read", :remote => true, :method => :post do %>
+        Mark all read
+      <% end %>
+      <%= link_to root_path, :class => "btn btn-default js-mark-all-read" do %> Reload
+      <% end %>
+    </div>
+    <div class="btn-group btn-group-sm">
+      <%= form_for :q, :remote => true, :method => :get, :html => {:class => "form-inline", :id => "js-search-filters", :role => "form"} do |f| %>
+        <div class="form-group">
+          <label>
+            <%= f.check_box :read_later, :class => "js-filter" %> later
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            <%= f.check_box :unread, :class => "js-filter" %> unread
+          </label>
+        </div>
+        <%= hidden_field_tag "partial","true" %>
+      <% end %>
+    </div>
   </div>
 <% end %>
 
@@ -19,4 +36,5 @@
   Rfeeder.wire_mark_read();
   Rfeeder.wire_mark_read_later();
   Rfeeder.wire_endless_scroll();
+  Rfeeder.wire_search();
 <% end %>

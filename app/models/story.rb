@@ -3,10 +3,6 @@ class Story < ActiveRecord::Base
   validates_uniqueness_of :entry_id, scope: :feed_id
 
   attr_accessor :user_open
-  #mark as opened
-  def self.opened(story, user)
-    UserOpen.opened(story, user)
-  end
 
   def self.create_from_raw(feed, entry)
     #might fail!
@@ -38,7 +34,7 @@ class Story < ActiveRecord::Base
   end
 
   def seen_text
-    user_open.seen? ? I18n.l(user_open.last_opened_at) : 'new'
+    user_open.opened? ? I18n.l(user_open.last_opened_at) : 'new'
   end
 
   def raw_body=(entry)

@@ -8,6 +8,7 @@ Rfeeder::Application.routes.draw do
     member do
       get 'open'
       post 'mark_read'
+      post 'mark_read_later'
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131213203626) do
+ActiveRecord::Schema.define(version: 20140524203007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,11 +49,13 @@ ActiveRecord::Schema.define(version: 20131213203626) do
   add_index "stories", ["permalink", "feed_id"], name: "index_stories_on_permalink_and_feed_id", unique: true, using: :btree
 
   create_table "user_opens", force: true do |t|
-    t.datetime "last_opened_at", null: false
+    t.datetime "last_opened_at"
     t.integer  "user_id",        null: false
     t.integer  "story_id",       null: false
+    t.datetime "read_later_at"
   end
 
+  add_index "user_opens", ["read_later_at"], name: "index_user_opens_on_read_later_at", using: :btree
   add_index "user_opens", ["user_id", "story_id"], name: "index_user_opens_on_user_id_and_story_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|

@@ -2,7 +2,7 @@
 Rfeeder.wire_open_story = function () {
   $("#stories").on('click', ".js-open-story", function () {
     var indicator_id = "#new-story-" + $(this).data("new-story-id");
-    $(indicator_id).hide();
+    $(indicator_id).find('.read-story').removeClass("storyNotRead");
   })
 };
 

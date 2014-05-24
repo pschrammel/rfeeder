@@ -57,7 +57,7 @@ class StoriesController < ApplicationController
   end
 
   def open
-    Story.opened(@story, current_user)
+    UserOpen.story_of_user(@story, current_user).open!
     redirect_to @story.permalink
   end
 

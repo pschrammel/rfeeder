@@ -29,6 +29,7 @@ group "development" do
   gem "capistrano"
   gem "capistrano-ext"
   gem "rvm-capistrano" 
+  gem "thin"
 end 
 
 group "test" do

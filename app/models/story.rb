@@ -18,10 +18,15 @@ class Story < ActiveRecord::Base
   end
 
   scope :filter, lambda { |filter, user|
-
-    if filter.read_later?
+    if filter.read_later? || filter.unread?
       sc=joins("LEFT JOIN user_opens ON stories.id=user_opens.story_id").where(["user_opens.user_id=?", user.id])
-      sc=sc.where("user_opens.read_later_at is not null")
+
+      if filter.read_later?
+        sc=sc.where("user_opens.read_later_at is not null")
+      end
+      if filter.unread?
+        sc=sc.where("user_opens.last_opened_at is null")
+      end
       sc
     end
   }

@@ -28,4 +28,4 @@
   </div>
 <% end %>
 
-<%= link_to_next_page @stories, 'Next Page', :params => {:partial => true, :q => @q.to_hash}, :class => 'js-jscroll-next' %>
+<%= link_to_next_page @stories, 'More', :params => {:partial => true, :q => @q.to_hash}, :remote => true, :class => "js-next-storries-link next-storries-link btn btn-default" %>

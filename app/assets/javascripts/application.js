@@ -15,4 +15,4 @@
 //= require twitter/bootstrap
 //= require rfeeder
 //= require stories
-//= require jquery.jscroll
+

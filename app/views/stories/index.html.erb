@@ -1,6 +1,6 @@
 <%= content_for :header do %>
   <div class="btn-toolbar" role="toolbar">
-    <div class="btn-group btn-group-sm">
+    <div class="btn-group btn-group">
       <%= link_to mark_all_read_stories_path(:before => Time.now.iso8601), :class => "btn btn-default js-mark-all-read", :remote => true, :method => :post do %>
         <span class="glyphicon glyphicon-ok-sign"></span>
       <% end %>
@@ -38,4 +38,5 @@
   Rfeeder.wire_mark_read_later();
   Rfeeder.wire_endless_scroll();
   Rfeeder.wire_search();
+
 <% end %>

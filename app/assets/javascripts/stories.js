@@ -58,8 +58,9 @@ Rfeeder.wire_search = function () {
 }
 
 Rfeeder.wire_endless_scroll = function () {
-  $("#stories").on("ajax:success", function (e, data, status, xhr) {
+  $("#stories .js-next-storries-link").on("ajax:success", function (e, data, status, xhr) {
     $("#stories .js-next-storries-link").replaceWith(data);
+    Rfeeder.wire_endless_scroll(); // rebind on new "more link"
   })
 
 }

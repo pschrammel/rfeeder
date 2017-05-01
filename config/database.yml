@@ -1,0 +1,26 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  reconnect: true
+
+<% uri=URI.parse(ENV["DATABASE_URI"]) %>
+
+development:
+  <<: *default
+  url: <%= ENV["DATABASE_URI"]%>
+
+production:
+  <<: *default
+  database: rfeeder
+  username: <%= uri.user %>
+  password: <%= uri.password %>
+  host: <%= uri.host %>
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: rfeeder_test
+  pool: 5
+  username: rfeeder
+  password:

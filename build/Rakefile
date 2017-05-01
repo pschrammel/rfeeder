@@ -1,0 +1,45 @@
+tag=Time.now.strftime("%Y%m%d%H%M")
+repo="fxnet/"
+project="fxnet-rss-feeder"
+app_dir=File.expand_path(File.join(File.dirname(__FILE__),".."))
+build_info_filename = ".build_info"
+aws_region=nil
+
+require 'json'
+
+namespace :release do
+  desc "build"
+  task "build" do
+    build_info = {
+        git_rev: `git rev-parse HEAD`.strip,
+        git_branch: `git rev-parse --abbrev-ref HEAD`.strip
+     }
+    File.open(File.join(app_dir,build_info_filename), 'w') { |f| f.puts(JSON.generate(build_info)) }
+    system("docker pull #{repo}#{project}:latest")
+    system("docker build -t  #{repo}#{project}:latest --cache-from #{repo}#{project}:latest --pull #{app_dir}")
+  end
+
+  desc "build and push to repository"
+  task "push" => "build" do
+    release_for=ENV["APP_ENV"] || nil
+
+    # latest
+    puts "pushing latest"
+    system("docker push #{repo}#{project}:latest")
+
+    # by time
+    puts "pushing #{tag}"
+    system("docker tag #{repo}#{project}:latest #{repo}#{project}:#{tag}")
+    system("docker push #{repo}#{project}:#{tag}")
+
+
+    # environment
+    if release_for
+      puts "pushing #{release_for}"
+      release_for_repo= "#{repo}#{project}:#{release_for}"
+      system("docker tag #{repo}#{project}:latest #{release_for_repo}")
+      system("docker push #{release_for_repo}")
+    end
+
+  end
+end

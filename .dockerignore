@@ -1,0 +1,6 @@
+
+.dockerignore
+.git
+tmp/*
+log/*
+build/*

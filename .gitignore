@@ -17,4 +17,5 @@
 .idea
 .rvmrc
 .rspec
-config/database.yml
+public/assets
+.build_info

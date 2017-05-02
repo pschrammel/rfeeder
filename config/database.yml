@@ -4,11 +4,15 @@ default: &default
   pool: 5
   reconnect: true
 
-<% uri=URI.parse(ENV["DATABASE_URI"]) %>
+# this is a stupid fallback just used for precompile
+<% uri=URI.parse(ENV["DATABASE_URI"] || "postgres://dev:1234@localhost/rfeeder_development?pool=5" )%>
 
 development:
   <<: *default
-  url: <%= ENV["DATABASE_URI"]%>
+  database: rfeeder
+  username: <%= uri.user %>
+  password: <%= uri.password %>
+  host: <%= uri.host %>
 
 production:
   <<: *default

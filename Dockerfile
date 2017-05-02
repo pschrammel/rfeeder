@@ -30,7 +30,7 @@ ADD . $APP_DIR
 ADD .build_info $APP_DIR/public/.build_info
 ADD .build_info $APP_DIR
 
-RUN rake assets:precompile
+RUN RAILS_ENV=development rake assets:precompile --trace
 
 CMD /bin/bash
 

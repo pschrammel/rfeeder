@@ -31,15 +31,5 @@ namespace :release do
     puts "pushing #{tag}"
     system("docker tag #{repo}#{project}:latest #{repo}#{project}:#{tag}")
     system("docker push #{repo}#{project}:#{tag}")
-
-
-    # environment
-    if release_for
-      puts "pushing #{release_for}"
-      release_for_repo= "#{repo}#{project}:#{release_for}"
-      system("docker tag #{repo}#{project}:latest #{release_for_repo}")
-      system("docker push #{release_for_repo}")
-    end
-
   end
 end

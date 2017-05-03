@@ -18,7 +18,7 @@ gem "devise"
 gem "kaminari","0.14.1"
 gem "feedzirra",:git => 'https://github.com/pauldix/feedzirra.git' #"0.5.0"
 gem "thread","0.1.3"
-
+gem "non-stupid-digest-assets"
 
 group "test" do
   gem "factory_girl"

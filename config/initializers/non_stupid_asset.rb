@@ -1,1 +1,1 @@
-NonStupidDigestAssets.whitelist += [/twitter\/.*/,]
+#NonStupidDigestAssets.whitelist += [/twitter\/.*/,]

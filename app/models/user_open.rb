@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: user_opens
+#
+#  id             :integer          not null, primary key
+#  last_opened_at :datetime
+#  user_id        :integer          not null
+#  story_id       :integer          not null
+#  read_later_at  :datetime
+#
+
 class UserOpen < ActiveRecord::Base
   belongs_to :user
   belongs_to :story

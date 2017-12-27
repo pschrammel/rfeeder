@@ -29,6 +29,12 @@ module Rfeeder
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.site_name='Rfeeder'
     config.domain_name='localhost:3000'
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => :any
+      end
+    end
   end
 end
 

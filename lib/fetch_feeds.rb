@@ -1,4 +1,4 @@
-require 'thread/pool'
+#require 'thread/pool'
 
 class FetchFeeds
   def initialize(feeds, logger=Rails.logger, pool = Thread.pool(10))

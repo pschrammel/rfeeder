@@ -1,4 +1,4 @@
-FROM ruby:2.1.5-slim
+FROM ruby:2.4.1-slim
 ENV LANG=C.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=C.UTF-8
@@ -30,7 +30,7 @@ ADD . $APP_DIR
 ADD .build_info $APP_DIR/public/.build_info
 ADD .build_info $APP_DIR
 
-RUN RAILS_ENV=development rake assets:precompile --trace
+#RUN RAILS_ENV=development rake assets:precompile --trace
 
 CMD /bin/bash
 

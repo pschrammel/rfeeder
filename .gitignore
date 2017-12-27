@@ -19,3 +19,4 @@
 .rspec
 public/assets
 .build_info
+*~

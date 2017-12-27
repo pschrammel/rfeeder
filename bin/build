@@ -1,0 +1,15 @@
+#!/bin/bash
+tag=`date +%Y%m%d%H%M`
+repo="fxnet/"
+project="fxnet-rss-feeder"
+app_dir=`pwd`
+
+#`aws ecr get-login --region eu-west-1`
+docker build -t $repo$project:latest $app_dir
+
+if [ "$1" == "release" ]; then
+  docker push $repo$project:latest
+  docker tag $repo$project:latest $repo$project:$tag
+  docker push $repo$project:$tag
+  echo "Pushed $project, Tag: $tag"
+fi

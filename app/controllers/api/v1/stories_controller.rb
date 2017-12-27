@@ -4,7 +4,7 @@ module Api
       jsonapi resource: ::StoryResource
 
       def index
-        render_jsonapi(Story.limit(50).all)
+        render_jsonapi(Story.includes(:feed).all)
       end
 
       # def show

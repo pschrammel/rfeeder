@@ -1,4 +1,7 @@
 JsonapiSpecHelpers::Payload.register(:story) do
-  key(:title, String)
+  key(:headline, String)
+  key(:lead, String)
+  key(:source, String)
+  key(:permalink, String)
   timestamps!
 end

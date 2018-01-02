@@ -18,6 +18,7 @@
 
 class Story < ActiveRecord::Base
   belongs_to :feed
+  has_many :user_opens
   validates_uniqueness_of :entry_id, :scope => :feed_id
 
   attr_accessor :user_open

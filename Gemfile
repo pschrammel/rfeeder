@@ -13,9 +13,10 @@ gem 'puma'
 #gem 'jquery-rails'
 #gem 'jbuilder', '~> 1.2'
 
+gem 'omniauth_openid_connect'
+
 gem "attribute_normalizer" #, "0.3.1"
 gem "annotate"
-gem "devise"
 
 gem "kaminari" #,"0.14.1"
 gem "rspec-rails", require: 'rspec/rails'

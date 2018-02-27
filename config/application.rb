@@ -35,6 +35,24 @@ module Rfeeder
         resource '*', :headers => :any, :methods => :any
       end
     end
+    
+    Rails.application.config.middleware.use OmniAuth::Builder do
+
+      provider 'openid_connect', { 
+        scope: [:openid, :profile, :email],
+        response_type: :code,
+        discovery: true, 
+
+        client_options: {
+          port: ENV["OIC_PORT"] || '80',
+          scheme: ENV["OIC_SCHEME"] || 'http',
+          host: ENV["OIC_HOST"],
+          identifier: ENV["OIC_CLIENT_ID"],
+          secret: ENV["OIC_CLIENT_SECRET"],
+          redirect_uri: "#{ENV['OIC_CLIENT_URL']}/auth/openidconnect/callback",
+      }}
+    end
+   
   end
 end
 

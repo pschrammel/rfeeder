@@ -5,12 +5,9 @@ module Api
 
       def index
         scope=Story
-               .includes(:feed)
-               .select('stories.*, user_opens.last_opened_at as last_opened_at, user_opens.read_later_at as read_later_at')
-               .order("id desc")
+               .base(the_user)
                .limit(10)
-               .left_outer_joins(:user_opens).
-               where(["user_opens.user_id=? or user_opens.user_id is null",the_user.id]).all
+               .all
         render_jsonapi(scope)
       end
 

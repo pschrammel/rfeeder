@@ -23,6 +23,13 @@ class Story < ActiveRecord::Base
 
   attr_accessor :user_open
 
+  scope :base, lambda { |the_user|
+    includes(:feed)
+    .select('stories.*, user_opens.last_opened_at as last_opened_at, user_opens.read_later_at as read_later_at')
+    .order("id desc")
+    .left_outer_joins(:user_opens)
+    .where(["user_opens.user_id=? or user_opens.user_id is null",the_user.id])
+  }
   def self.create_from_raw(feed, entry)
     #might fail!
     Story.create(:feed => feed,

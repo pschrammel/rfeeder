@@ -12,16 +12,14 @@ class StoryResource < ApplicationResource
   end
 
   def update(attributes)
-    user=User.find(3)
-    story =Story.base(user).find(attributes.delete(:id))
-    Rails.logger.debug(attributes)
+    story =Story.base(the_user).find(attributes.delete(:id))
     if attributes.key?(:last_opened_at)
       if attributes[:last_opened_at]
         set=Time.now
       else
         set=nil
       end
-      with_opened(story,user) do |opened|
+      with_opened(story) do |opened|
         opened.last_opened_at=
           story.last_opened_at=set
       end
@@ -32,7 +30,7 @@ class StoryResource < ApplicationResource
       else
         set=nil
       end
-      with_opened(story,user) do |opened|
+      with_opened(story) do |opened|
         opened.read_later_at=
           story.read_later_at=set
       end
@@ -42,8 +40,12 @@ class StoryResource < ApplicationResource
 
   private
 
-  def with_opened(story,user)
-    opened=UserOpen.story_of_user(story, user)
+  def the_user
+    @the_user ||= context.send(:the_user)
+  end
+
+  def with_opened(story)
+    opened=UserOpen.story_of_user(story, the_user)
     yield opened
     opened.save!
   end

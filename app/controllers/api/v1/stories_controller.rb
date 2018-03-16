@@ -26,10 +26,7 @@ module Api
       #   scope = jsonapi_scope(Story.where(id: params[:id]))
       #   render_jsonapi(scope.resolve.first, scope: false)
       # end
-      private
-      def the_user
-        @the_user ||= User.find(3)
-      end
+
     end
 
   end

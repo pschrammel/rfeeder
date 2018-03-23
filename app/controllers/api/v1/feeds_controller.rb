@@ -1,11 +1,32 @@
+module JsonapiCompliable
+  class Scope
+    attr_reader :object
+  end
+end
+
 module Api
   module V1
     class FeedsController < ApiController
       jsonapi resource: ::FeedResource
 
       def index
-        scope=Feed
-        render_jsonapi(scope)
+
+        scope=jsonapi_scope(Feed)
+        so=scope.object
+        scope.resolve #(fire the requests)
+        render_jsonapi(scope, scope: false,
+                       meta: {
+                         page: {
+                           total: so.total_pages,
+                           current: so.current_page,
+                           next: so.next_page,
+                           prev: so.prev_page,
+                           last: so.last_page?,
+                           out_of_range: so.out_of_range?
+                         },
+                         count:  so.total_count
+                       }
+                      )
       end
 
 

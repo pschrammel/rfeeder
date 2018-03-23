@@ -7,4 +7,9 @@ class SerializableFeed < JSONAPI::Serializable::Resource
   attribute :name
   attribute :url
   attribute :last_fetched_at
+
+
+  #meta do
+  #  { featured: true }
+  #end
 end

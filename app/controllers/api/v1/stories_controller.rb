@@ -4,11 +4,24 @@ module Api
       jsonapi resource: ::StoryResource
 
       def index
-        scope=Story
-               .base(the_user)
-               .limit(10)
-               .all
-        render_jsonapi(scope)
+        scope=jsonapi_scope(Story
+               .base(the_user).limit(10))
+
+        so=scope.object
+        #scope.resolve #(fire the requests)
+        render_jsonapi(scope, #scope: false,
+                       meta: {
+                         page: {
+                           total: so.total_pages,
+                           current: so.current_page,
+                           next: so.next_page,
+                           prev: so.prev_page,
+                           last: so.last_page?,
+                           out_of_range: so.out_of_range?
+                         },
+                         count:  so.total_count
+                       }
+                      )
       end
 
 

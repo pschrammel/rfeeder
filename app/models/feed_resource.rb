@@ -1,5 +1,6 @@
 class FeedResource < ApplicationResource
   type :feeds
   model Feed
-#  default_sort [{id: :desc}]
+  default_sort [{name: :asc}]
+
 end

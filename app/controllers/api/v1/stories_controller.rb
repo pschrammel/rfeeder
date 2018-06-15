@@ -1,6 +1,8 @@
 module Api
   module V1
     class StoriesController < ApiController
+      #before_action :authenticate!
+
       jsonapi resource: ::StoryResource
 
       def index
@@ -39,6 +41,9 @@ module Api
       #   scope = jsonapi_scope(Story.where(id: params[:id]))
       #   render_jsonapi(scope.resolve.first, scope: false)
       # end
+
+
+
 
     end
 

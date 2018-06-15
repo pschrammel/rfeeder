@@ -13,7 +13,7 @@ gem 'puma'
 #gem 'jquery-rails'
 #gem 'jbuilder', '~> 1.2'
 
-gem 'omniauth_openid_connect'
+gem 'openid_connect'
 
 gem "attribute_normalizer" #, "0.3.1"
 gem "annotate"
@@ -26,6 +26,7 @@ gem 'jsonapi-rails'
 gem 'jsonapi_swagger_helpers', require: false
 gem 'jsonapi_spec_helpers', require: false
 gem 'rack-cors', require: 'rack/cors'
+gem 'jwt'
 
 #gem "feedzirra",:git => 'https://github.com/pauldix/feedzirra.git' #"0.5.0"
 #gem "thread","0.1.3"

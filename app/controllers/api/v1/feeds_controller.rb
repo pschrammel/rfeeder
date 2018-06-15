@@ -1,9 +1,3 @@
-module JsonapiCompliable
-  class Scope
-    attr_reader :object
-  end
-end
-
 module Api
   module V1
     class FeedsController < ApiController
@@ -39,6 +33,25 @@ module Api
         end
       end
 
+      def create
+        feed, success = jsonapi_create.to_a
+
+        if success
+          render_jsonapi(feed, scope: false)
+        else
+          render_errors_for(feed)
+        end
+      end
+
+      def destroy
+        feed, success = jsonapi_destroy.to_a
+
+        if success
+          render json: { meta: {} }
+        else
+          render_errors_for(feed)
+        end
+      end
       # def show
       #   scope = jsonapi_scope(Story.where(id: params[:id]))
       #   render_jsonapi(scope.resolve.first, scope: false)

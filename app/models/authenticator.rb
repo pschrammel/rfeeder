@@ -2,9 +2,18 @@ class Authenticator
   include ActiveModel::Validations
 
   EXPECTED={
-    issuer:"https://dev-auth.fixingthe.net",
-    audience:"f3b7e5ad346926e70f4c5e8c853be3e6"
+    issuer: "https://dev-auth.fixingthe.net",
+    audience: "f3b7e5ad346926e70f4c5e8c853be3e6",
+    scope: "rss-feeder-quasar:use"
   }
+
+  def self.parse(auth)
+    if auth && match=auth.match(/Bearer (.*)/)
+      new(token: match[1])
+    else
+      new(token: nil)
+    end
+  end
 
   validate :extract
 
@@ -13,14 +22,22 @@ class Authenticator
     @token=token
   end
 
-  def expected
-    EXPECTED
+  def guest?
+    @token.nil?
   end
 
   def expires_at
     Time.at(@expires_at)
   end
+
+  private
+
+  def expected
+    EXPECTED
+  end
+
   def extract
+    return unless token
     payload, info=JSON::JWT.decode token, :skip_verification
     config = ::OpenIDConnect::Discovery::Provider::Config.discover!(payload["iss"]) # cache this!
     public_key=config.jwks
@@ -32,12 +49,13 @@ class Authenticator
     errors.add("iss","wrong issuer") unless expected[:issuer]==decoded.iss
     #errors.add("nonce") ,expected[:nonce]==decoded.nonce
     errors.add("aud","wrong audience") unless Array(decoded.aud).include?(expected[:audience])
-    begin
-      decoded.verify!(expected.merge(nonce: decoded.nonce)) # nonce doesn't make sense
-    rescue
-      errors.add(:base, "verification failed!")
-      logger.warn(["INVALID Token",$!])
-    end
+    errors.add("scopes","wrong scopes") unless Array(payload['scopes']).include?(expected[:scope])
+    #begin
+    #  decoded.verify!(expected.merge(nonce: decoded.nonce)) # nonce doesn't make sense
+    #rescue
+     # errors.add(:base, "verification failed!")
+    #  logger.warn(["INVALID Token",$!])
+    #end
     @sub=decoded.sub
     @scopes=payload["scopes"]
     @expires_at=payload["exp"]

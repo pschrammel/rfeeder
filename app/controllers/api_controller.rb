@@ -6,15 +6,10 @@ class ApiController <  ActionController::Base
     @the_user ||= User.find(3)
   end
 
-  EXPECTED_AUDIENCE="f3b7e5ad346926e70f4c5e8c853be3e6"
-  EXPECTED_ISSUER="https://dev-auth.fixingthe.net"
-
   def authenticate!
     logger.info "headers: #{request.headers["Authorization"]}"
-    auth=request.headers["Authorization"]
-    if auth && match=auth.match(/Bearer (.*)/)
-      id_token=match[1]
-      auth=Authenticator.new(token: match[1])
+    auth=Authenticator.parse(request.headers["Authorization"])
+    unless auth.guest?
       if auth.valid?
         logger.info(["valid authentification:", auth.sub,
                      auth.scopes,
@@ -29,7 +24,7 @@ class ApiController <  ActionController::Base
         render_401
       end
     else
-      logger.info("no authentification sent")
+      logger.info("no authentification sent/guest")
       render_401
     end
   end

@@ -7,6 +7,10 @@ class StoryResource < ApplicationResource
     scope.where('last_opened_at is null')
   end
 
+  allow_filter :unmarked do |scope, value|
+    scope.where('read_later_at is null')
+  end
+
   allow_filter :marked do |scope, value|
     scope.where('read_later_at is not null')
   end
